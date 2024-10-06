@@ -15,7 +15,7 @@ let navData = async () => {
      let btn_div = document.createElement("div");
  
      btn_div.innerHTML = `
-       <button id="btn-${item.category}" onclick="handleSpinner('${item.category}')" class="btn m-3 btn-category text-xl font-bold">
+       <button id="btn-${item.category}" onclick="handleSpinner('${item.category}')" class="btn m-3 btn-category text-xl font-bold hover:bg-sky-700">
          <img class="w-7 h-7" src="${item.category_icon}">
          ${item.category}
        </button>
@@ -90,12 +90,12 @@ let navData = async () => {
          <p class="text-sm text-gray-600">Gender: ${gender}</p>
          <p class="text-sm font-semibold text-green-500">Price: ${price}</p>
          <div class="mt-4 flex justify-between items-center">
-          <button onclick="ImageData('${item.petId}')" class="btn text-xl border border-5 p-1"> 
+          <button onclick="ImageData('${item.petId}')" class="btn text-xl border border-5 p-1 hover:bg-sky-700"> 
                   <i class="fa-regular fa-thumbs-up"></i>
                 </button>
-          <button class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Adopt</button>
+          <button class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md hover:bg-sky-700">Adopt</button>
            
-           <button onclick="modalData('${item.petId}')" class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Details</button>
+           <button onclick="modalData('${item.petId}')" class="hover:bg-sky-700 bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Details</button>
          </div>
        `;
  
@@ -169,29 +169,39 @@ let showModal =(modal)=>{
 
     let modalDiv= document.getElementById("modalContent") 
 
+    let breed = modal.breed ? modal.breed : "Breed not available";
+       let birthDate = modal.date_of_birth ? modal.date_of_birth : "Date of birth not available";
+       let gender = modal.gender ? modal.gender : "Gender not specified";
+       let price = modal.price ? `$${modal.price}` : "Price not available";
+    
+
+    
+
     modalDiv.innerHTML=`
 
-      <img src="${modal.image}">
-      <h1> ${modal.pet_name}</h1>
+    
+
+      <img class="rounded" src="${modal.image}">
+      <h1 class="text-2xl font-extrabold mt-3"> ${modal.pet_name}</h1>
+      <div class="flex justify-between">
       <div>
-      <div>
-      <h3>Breed:${modal.breed} </h3>
-      <h3>Gender:${modal.gender} </h3>
-      <h3>vaccinated_status:${modal.vaccinated_status} </h3>
+      <h3 class="font-bold mt-3">Breed:${breed} </h3>
+      <h3 class="font-bold mt-3">Gender:${gender} </h3>
+      <h3 class="font-bold mt-3">vaccinated_status:${modal.vaccinated_status} </h3>
       </div>
 
       <div>
 
-      <h3>Birth:${modal.date_of_birth}</h3>
-      <h3>Price:${modal.price} </h3>
+      <h3 class="font-bold mt-3">Birth:${birthDate}</h3>
+      <h3 class="font-bold mt-3">Price:${price} </h3>
 
       </div>
 
       </div>
 
-      <h2>Details Description </div>
+      <h2 class="font-extrabold mt-3 text-2xl">Details Description </h2>
 
-      <p> ${modal.pet_details}</p>
+      <p class="mt-3 text-red-800 font-bold"> ${modal.pet_details}</p>
     
     
     
