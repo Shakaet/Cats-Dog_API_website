@@ -93,7 +93,7 @@ let navData = async () => {
           <button onclick="ImageData('${item.petId}')" class="btn text-xl border border-5 p-1 hover:bg-sky-700"> 
                   <i class="fa-regular fa-thumbs-up"></i>
                 </button>
-          <button class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md hover:bg-sky-700">Adopt</button>
+          <button onclick="startAdoptionCountdown('${item.pet_name}')" class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md hover:bg-sky-700">Adopt</button>
            
            <button onclick="modalData('${item.petId}')" class="hover:bg-sky-700 bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Details</button>
          </div>
@@ -212,4 +212,37 @@ let showModal =(modal)=>{
 }
 
 
+
+let startAdoptionCountdown = (petName) => {
+   let countdownDiv = document.getElementById("modalContent");
+ 
+   // Start countdown from 3
+   let countdown = 3;
+ 
+   // Display the modal
+   countdownDiv.innerHTML = `
+    <img class="mx-auto" src="images/logo.png">
+     <h1 class="text-5xl font-extrabold mb-4 text-center">Congrates</h1>
+     <p class="text-2xl font-semibold">Adoption Process is Start for your Pet </p>
+     <h1 id="countdown" class="text-5xl font-extrabold mb-4 text-center">${countdown}</h1>
+   `;
+ 
+   document.getElementById("my_modal_1").showModal();
+ 
+   // Countdown logic
+   let countdownInterval = setInterval(() => {
+     countdown--;
+     document.getElementById("countdown").innerText = countdown;
+ 
+     if (countdown === 0) {
+       clearInterval(countdownInterval);
+      
+ 
+       // Close the modal after 1 second (giving time for user to see the success message)
+       setTimeout(() => {
+         document.getElementById("my_modal_1").close();
+       }, 1000); // Close after 1 second
+     }
+   }, 1000); // Decrease the count every 1 second
+ };
  
