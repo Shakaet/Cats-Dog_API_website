@@ -15,7 +15,7 @@ let navData = async () => {
      let btn_div = document.createElement("div");
  
      btn_div.innerHTML = `
-       <button onclick="handleSpinner('${item.category}')" class="btn m-3 btn-category text-xl font-bold">
+       <button id="btn-${item.category}" onclick="handleSpinner('${item.category}')" class="btn m-3 btn-category text-xl font-bold">
          <img class="w-7 h-7" src="${item.category_icon}">
          ${item.category}
        </button>
@@ -42,7 +42,17 @@ let navData = async () => {
  
    let res = await fetch(`https://openapi.programming-hero.com/api/peddy/category/${categoryName}`);
    let data = await res.json();
+
+   removeActiveButton()
+
+   document.getElementById(`btn-${categoryName}`).classList.add("active")
+
+
    displayAllData(data.data);
+
+   
+
+
  };
  
  let displayAllData = (items) => {
@@ -77,7 +87,15 @@ let navData = async () => {
      }
    } else {
      // If items is not an array or it's empty, display a message
-     item_container.innerHTML = `<p class="text-xl text-gray-600">No pets available in this category.</p>`;
+     item_container.innerHTML = `
+
+               <div class="mx-auto">
+               <img src="images/error.webp">
+     
+             <h1 class="text-xl text-gray-600 font-bold">No Information available in this Category.</h1>
+
+               </div>
+              `
    }
  };
  
@@ -90,4 +108,14 @@ let navData = async () => {
      categoryAllData(categoryName);
    }, 2000);
  };
+
+
+ let removeActiveButton=()=>{
+
+   let buttons= document.getElementsByClassName("btn-category")
+
+   for (let btn1 of buttons){
+       btn1.classList.remove("active")
+   }
+}
  
