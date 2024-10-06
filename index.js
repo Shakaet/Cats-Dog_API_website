@@ -35,6 +35,13 @@ let navData = async () => {
  };
  
  loadAllData();
+
+ let ImageData = async (id) => {
+   let res = await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${id}`);
+   let data = await res.json();
+   ShowImage(data.petData);
+ };
+
  
  let categoryAllData = async (categoryName) => {
    document.getElementById("spinner").style.display = "none";
@@ -76,14 +83,18 @@ let navData = async () => {
          <p class="text-sm text-gray-600">Birth: ${birthDate}</p>
          <p class="text-sm text-gray-600">Gender: ${gender}</p>
          <p class="text-sm font-semibold text-green-500">Price: ${price}</p>
-         <div class="mt-4 flex justify-between">
-           <button class="bg-blue-500 text-white py-1 px-3 rounded-md">Adopt</button>
-           <button class="bg-blue-500 text-white py-1 px-3 rounded-md">Adopt</button>
+         <div class="mt-4 flex justify-between items-center">
+          <button onclick="ImageData('${item.petId}')" class="btn text-xl border border-5 p-1"> 
+                  <i class="fa-regular fa-thumbs-up"></i>
+                </button>
+          <button class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Adopt</button>
+           
            <button class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Details</button>
          </div>
        `;
  
        item_container.appendChild(cardDiv);
+
      }
    } else {
      // If items is not an array or it's empty, display a message
@@ -97,6 +108,10 @@ let navData = async () => {
                </div>
               `
    }
+
+   
+
+ 
  };
  
  
@@ -118,4 +133,33 @@ let navData = async () => {
        btn1.classList.remove("active")
    }
 }
+
+
+let ShowImage=(pics)=>{
+
+   let ImageContainer =document.getElementById("pic")
+
+ 
+      let ImageDiv=document.createElement("div")
+      ImageDiv.innerHTML=`
+
+      <img src="${pics.image}" alt="Dog Image 3" class="rounded-lg shadow-lg h-34 object-cover w-full">
+      
+      
+      
+      `
+
+      ImageContainer.appendChild(ImageDiv)
+
+
+
+   
+
+   
+
+
+
+}
+
+
  
