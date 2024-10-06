@@ -1,10 +1,15 @@
+
+
+
+
+
 let navData = async () => {
    let res = await fetch("https://openapi.programming-hero.com/api/peddy/categories");
    let data = await res.json();
    navDisplayData(data.categories);
  };
  
- // Move this function definition above `navData()`
+ 
  let navDisplayData = (items) => {
    let nav_container = document.getElementById("categories");
    nav_container.classList = "md:flex justify-evenly mx-auto shadow-xl";
@@ -25,16 +30,33 @@ let navData = async () => {
    }
  };
  
- // Ensure this runs after all function definitions
+ 
  navData();
+
+
  
- let loadAllData = async () => {
-   let res = await fetch("https://openapi.programming-hero.com/api/peddy/pets");
-   let data = await res.json();
-   displayAllData(data.pets);
- };
  
- loadAllData();
+
+
+let petsData = [];
+
+
+
+let loadAllData = async () => {
+  let res = await fetch("https://openapi.programming-hero.com/api/peddy/pets");
+  let data = await res.json();
+  
+  petsData = data.pets; 
+  displayAllData(petsData); 
+};
+
+loadAllData();
+
+
+
+
+
+
 
  let ImageData = async (id) => {
    let res = await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${id}`);
@@ -42,11 +64,22 @@ let navData = async () => {
    ShowImage(data.petData);
  };
 
+
+
+
+
+
  let modalData = async (id2) => {
    let res = await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${id2}`);
    let data = await res.json();
    showModal(data.petData);
  };
+
+
+
+
+
+
 
  
  let categoryAllData = async (categoryName) => {
@@ -65,14 +98,36 @@ let navData = async () => {
 
    
 
+ };
 
+
+
+
+
+
+ 
+let sortByPrice = () => {
+  
+   let sortedPets = [...petsData].sort((a, b) => b.price - a.price);
+   displayAllData(sortedPets); 
  };
  
- let displayAllData = (items) => {
-   let item_container = document.getElementById("card");
-   item_container.innerHTML = '';  // Clear the container before appending new data
  
-   // Check if items is an array and has elements
+ document.getElementById("sort-price").addEventListener("click", sortByPrice);
+
+
+
+ 
+
+
+
+
+ 
+let displayAllData = (items) => {
+   let item_container = document.getElementById("card");
+   item_container.innerHTML = '';  
+ 
+  
    if (Array.isArray(items) && items.length > 0) {
      for (let item of items) {
        let breed = item.breed ? item.breed : "Breed not available";
@@ -83,42 +138,35 @@ let navData = async () => {
        let cardDiv = document.createElement("div");
  
        cardDiv.innerHTML = `
-         <img src="${item.image}" alt="Mister Tartosh" class="w-full h-40 object-cover rounded-t-lg">
+         <img src="${item.image}" alt="Pet Image" class="w-full h-40 object-cover rounded-t-lg">
          <h3 class="text-xl font-semibold mt-4">${item.pet_name}</h3>
          <p class="text-sm text-gray-600">Breed: ${breed}</p>
          <p class="text-sm text-gray-600">Birth: ${birthDate}</p>
          <p class="text-sm text-gray-600">Gender: ${gender}</p>
          <p class="text-sm font-semibold text-green-500">Price: ${price}</p>
          <div class="mt-4 flex justify-between items-center">
-          <button onclick="ImageData('${item.petId}')" class="btn text-xl border border-5 p-1 hover:bg-sky-700"> 
-                  <i class="fa-regular fa-thumbs-up"></i>
-                </button>
-          <button onclick="startAdoptionCountdown('${item.pet_name}')" class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md hover:bg-sky-700">Adopt</button>
-           
+           <button onclick="ImageData('${item.petId}')" class="btn text-xl border border-5 p-1 hover:bg-sky-700"> 
+             <i class="fa-regular fa-thumbs-up"></i>
+           </button>
+           <button onclick="startAdoptionCountdown('${item.pet_name}')" class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md hover:bg-sky-700">Adopt</button>
            <button onclick="modalData('${item.petId}')" class="hover:bg-sky-700 bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Details</button>
          </div>
        `;
  
        item_container.appendChild(cardDiv);
-
      }
    } else {
-     // If items is not an array or it's empty, display a message
-     item_container.innerHTML = `
-
-               <div class="mx-auto">
-               <img src="images/error.webp">
      
-             <h1 class="text-xl text-gray-600 font-bold">No Information available in this Category.</h1>
-
-               </div>
-              `
+     item_container.innerHTML = `
+       <div class="mx-auto">
+         <img src="images/error.webp">
+         <h1 class="text-xl text-gray-600 font-bold">No Information available in this Category.</h1>
+       </div>
+     `;
    }
-
-   
-
- 
  };
+
+
  
  
  let handleSpinner = (categoryName) => {
@@ -131,6 +179,8 @@ let navData = async () => {
  };
 
 
+
+
  let removeActiveButton=()=>{
 
    let buttons= document.getElementsByClassName("btn-category")
@@ -139,6 +189,9 @@ let navData = async () => {
        btn1.classList.remove("active")
    }
 }
+
+
+
 
 
 let ShowImage=(pics)=>{
@@ -163,6 +216,11 @@ let ShowImage=(pics)=>{
 
 
 }
+
+
+
+
+
 
 
 let showModal =(modal)=>{
@@ -213,13 +271,17 @@ let showModal =(modal)=>{
 
 
 
+
+
+
+
 let startAdoptionCountdown = (petName) => {
    let countdownDiv = document.getElementById("modalContent");
  
-   // Start countdown from 3
+   
    let countdown = 3;
  
-   // Display the modal
+ 
    countdownDiv.innerHTML = `
     <img class="mx-auto" src="images/logo.png">
      <h1 class="text-5xl font-extrabold mb-4 text-center">Congrates</h1>
@@ -229,7 +291,7 @@ let startAdoptionCountdown = (petName) => {
  
    document.getElementById("my_modal_1").showModal();
  
-   // Countdown logic
+  
    let countdownInterval = setInterval(() => {
      countdown--;
      document.getElementById("countdown").innerText = countdown;
@@ -238,11 +300,21 @@ let startAdoptionCountdown = (petName) => {
        clearInterval(countdownInterval);
       
  
-       // Close the modal after 1 second (giving time for user to see the success message)
+       
        setTimeout(() => {
          document.getElementById("my_modal_1").close();
-       }, 1000); // Close after 1 second
+       }, 1000); 
      }
-   }, 1000); // Decrease the count every 1 second
+   }, 1000); 
  };
+
+
+
+
+
+
+
+
+
+
  
