@@ -121,23 +121,6 @@
             <!-- Left Section: Pet Cards (Take 4/5th width) -->
             <div id="card" class="lg:col-span-4 grid grid-cols-1 md:grid-cols-3 gap-6 bg-white p-4 rounded-lg border border-3">
                
-            
-                
-                <!-- Pet Card 1
-                <div class="bg-white p-4 rounded-lg shadow-lg">
-                    <img src="https://placekitten.com/400/300" alt="Mister Tartosh" class="w-full h-40 object-cover rounded-t-lg">
-                    <h3 class="text-xl font-semibold mt-4">Mister Tartosh</h3>
-                    <p class="text-sm text-gray-600">Breed: Golden Retriever</p>
-                    <p class="text-sm text-gray-600">Birth: 2024</p>
-                    <p class="text-sm text-gray-600">Gender: Female</p>
-                    <p class="text-sm font-semibold text-green-500">Price: 199$</p>
-                    <div class="mt-4 flex justify-between">
-                        <button class="bg-blue-500 text-white py-1 px-3 rounded-md">Adopt</button>
-                        <button class="bg-blue-500 text-white py-1 px-3 rounded-md">Adopt</button>
-                        <button class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Details</button>
-                    </div>
-                </div> -->
-
                
 
                 
@@ -155,6 +138,27 @@
                
             </div>
         </div>
+
+
+       <!-- Open the modal using ID.showModal() method -->
+            <button class="btn hidden" onclick="my_modal_1.showModal()">open modal</button>
+            <dialog id="my_modal_1" class="modal">
+            <div class="modal-box">
+
+                <div id="modalContent">
+
+                </div>
+                
+                <div class="modal-action">
+                <form method="dialog">
+                    <!-- if there is a button in form, it will close the modal -->
+                    <button class="btn">Close</button>
+                </form>
+                </div>
+            </div>
+            </dialog>
+
+
     </div>
 
     

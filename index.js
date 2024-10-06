@@ -42,6 +42,12 @@ let navData = async () => {
    ShowImage(data.petData);
  };
 
+ let modalData = async (id2) => {
+   let res = await fetch(`https://openapi.programming-hero.com/api/peddy/pet/${id2}`);
+   let data = await res.json();
+   showModal(data.petData);
+ };
+
  
  let categoryAllData = async (categoryName) => {
    document.getElementById("spinner").style.display = "none";
@@ -89,7 +95,7 @@ let navData = async () => {
                 </button>
           <button class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Adopt</button>
            
-           <button class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Details</button>
+           <button onclick="modalData('${item.petId}')" class="bg-gray-200 text-gray-700 py-1 px-3 rounded-md">Details</button>
          </div>
        `;
  
@@ -153,11 +159,45 @@ let ShowImage=(pics)=>{
 
 
 
-   
-
-   
 
 
+
+}
+
+
+let showModal =(modal)=>{
+
+    let modalDiv= document.getElementById("modalContent") 
+
+    modalDiv.innerHTML=`
+
+      <img src="${modal.image}">
+      <h1> ${modal.pet_name}</h1>
+      <div>
+      <div>
+      <h3>Breed:${modal.breed} </h3>
+      <h3>Gender:${modal.gender} </h3>
+      <h3>vaccinated_status:${modal.vaccinated_status} </h3>
+      </div>
+
+      <div>
+
+      <h3>Birth:${modal.date_of_birth}</h3>
+      <h3>Price:${modal.price} </h3>
+
+      </div>
+
+      </div>
+
+      <h2>Details Description </div>
+
+      <p> ${modal.pet_details}</p>
+    
+    
+    
+    `
+
+    document.getElementById("my_modal_1").showModal() 
 
 }
 
