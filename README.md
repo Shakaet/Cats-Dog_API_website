@@ -17,4 +17,4 @@
 ### 3.**Async/Await**: Handles asynchronous operations like API calls to fetch pet and category data.
 ### 4.**Spread Operator**: Utilized for copying and sorting pet data without mutating the original array.
 ## Live Link to the Deployed Project
-# Click here to view the live project
+# https://regal-haupia-ff337c.netlify.app/
